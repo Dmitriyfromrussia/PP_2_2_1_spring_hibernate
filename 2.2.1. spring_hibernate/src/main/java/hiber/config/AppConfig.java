@@ -21,7 +21,7 @@ import java.util.Properties;
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 @ComponentScan(value = "hiber")
-public class AppConfig {
+public class  AppConfig {
 
    @Autowired
    private Environment env;
@@ -44,6 +44,7 @@ public class AppConfig {
       Properties props=new Properties();
       props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
       props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto")); // auto create
+      props.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
 
       factoryBean.setHibernateProperties(props);
       factoryBean.setAnnotatedClasses(User.class, Car.class);
