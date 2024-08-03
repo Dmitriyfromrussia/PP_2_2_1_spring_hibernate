@@ -27,19 +27,8 @@ public class UserDaoImp implements UserDao {
         return query.getResultList();
     }
 
-    @Override
+    @Override()
     public void add(Car car) {
         sessionFactory.getCurrentSession().persist(car);// изменил на persist
-    }
-
-    public User getUserByCar(String model, int series) { //User
-        List<User> allUsers = sessionFactory.getCurrentSession()
-                .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.userCar", User.class).getResultList();
-
-        for (User user : allUsers) {
-            if (user.getUserCar().getModel().equals(model) & user.getUserCar().getSeries() == series) return user;
-            break;
-        }
-        return null;
     }
 }
