@@ -3,11 +3,11 @@ package hiber;
 import hiber.config.AppConfig;
 import hiber.model.Car;
 import hiber.model.User;
-import hiber.service.CarService;
 import hiber.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class MainApp {
     public static void main(String[] args) throws SQLException {
@@ -15,7 +15,7 @@ public class MainApp {
                 new AnnotationConfigApplicationContext(AppConfig.class);
 
         UserService userService = context.getBean(UserService.class);
-        CarService carService = context.getBean(CarService.class);
+        //CarService carService = context.getBean(CarService.class); для закомментированных строк ниже
 
         User user1 = new User("User1", "Lastname1", "user1@mail.ru");
         User user2 = new User("User2", "Lastname2", "user2@mail.ru");
@@ -46,7 +46,7 @@ public class MainApp {
         System.out.println("__________________________________________");
 
         // проверка метода getUserByCar
-        User userTest = carService.getUserByCar("Usercar", 1);
+        Optional<User> userTest = userService.getUserByCar("Usercar", 1);
         System.out.println("Данные о юзере с авто (метода getUserByCar)" + userTest);
 
         context.close();

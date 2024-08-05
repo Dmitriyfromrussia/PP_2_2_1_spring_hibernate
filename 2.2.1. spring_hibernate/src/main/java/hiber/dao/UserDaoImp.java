@@ -1,6 +1,5 @@
 package hiber.dao;
 
-import hiber.model.Car;
 import hiber.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDaoImp implements UserDao {
@@ -27,8 +27,27 @@ public class UserDaoImp implements UserDao {
         return query.getResultList();
     }
 
-    @Override()
-    public void add(Car car) {
-        sessionFactory.getCurrentSession().persist(car);// изменил на persist
+    @Override
+    public Optional<User> getUserByCar(String model, int series) {
+        List<User> allUsers = sessionFactory.getCurrentSession()
+                .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.userCar", User.class).getResultList();
+
+        for (User user : allUsers) {
+            if (user.getUserCar().getModel().equals(model) && user.getUserCar().getSeries() == series) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
     }
+    //    @Override
+//    public User getUserByCar(String model, int series) {
+//        List<User> allUsers = sessionFactory.getCurrentSession()
+//                .createQuery("SELECT u FROM User u LEFT JOIN FETCH u.userCar", User.class).getResultList();
+//
+//        for (User user : allUsers) {
+//            if (user.getUserCar().getModel().equals(model) & user.getUserCar().getSeries() == series) return user;
+//            break;
+//        }
+//        return null;
+//    }
 }

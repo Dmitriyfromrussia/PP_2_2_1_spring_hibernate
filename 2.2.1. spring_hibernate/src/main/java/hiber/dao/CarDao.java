@@ -1,8 +1,8 @@
 package hiber.dao;
 
-import hiber.model.User;
+import hiber.model.Car;
 
 public interface CarDao {
 
-    User getUserByCar(String model, int series);// User
+    void add(Car car);
 }

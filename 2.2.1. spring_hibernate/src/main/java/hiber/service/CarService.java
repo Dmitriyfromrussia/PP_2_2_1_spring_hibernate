@@ -1,7 +1,8 @@
 package hiber.service;
 
-import hiber.model.User;
+import hiber.model.Car;
 
 public interface CarService {
-    User getUserByCar(String model, int series); //добавил
+
+    void add(Car car);
 }
